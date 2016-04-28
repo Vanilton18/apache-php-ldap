@@ -1,0 +1,27 @@
+web:
+  image: vaniltonpinheiro/apache-php-ldap
+  hostname: web
+  links:
+    - mysql
+  environment:
+    - ALLOW_OVERRIDE=true
+  ports:
+    - 80:80
+  volumes:
+    - .:/app
+
+mysql:
+  ports:
+    - 3306:3306
+  image: mysql
+  hostname: mysql
+  environment:
+     - MYSQL_ROOT_PASSWORD=root
+
+phpmyadmin:
+  hostname: myadmin
+  links:
+    - mysql:db   
+  ports:
+    - 8080:80
+  image: phpmyadmin/phpmyadmin
